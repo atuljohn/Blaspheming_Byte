@@ -1,0 +1,45 @@
+/*
+    class TreeNode{
+        int val;
+        TreeNode* left_ptr;
+        TreeNode* right_ptr;
+    };
+*/
+int numsingval = 0;
+/*
+    Complete the function below
+*/
+bool dfscheck(TreeNode *curr, int val) {
+    if(curr == NULL)
+        return true;
+    if( curr->val == val ) {
+        //cout << "curr->val is passed value\n";
+        if( dfscheck(curr->left_ptr, val) && dfscheck(curr->right_ptr, val) ) {
+            //cout << "returning true\n";
+            return true;
+        }
+    }
+    return false;
+}
+
+void helper(TreeNode *curr) {
+    if(curr == NULL)
+        return;
+        
+    //cout << curr->val;
+    if(dfscheck(curr, curr->val))
+        numsingval++;
+        
+    helper(curr->left_ptr);
+    helper(curr->right_ptr);
+    
+}
+
+int findSingleValueTrees(TreeNode* root){
+    TreeNode *curr = root;
+    
+    helper(curr);
+    
+    return numsingval;
+}
+
